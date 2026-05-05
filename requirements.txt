@@ -1,6 +1,11 @@
-torch
 matplotlib
 numpy
 pycolmap
 imageio
 cv2
+opencv-python
+joblib
+tensorboard
+gaussian-splatting/submodules/diff-gaussian-rasterization
+gaussian-splatting/submodules/simple-knn
+gaussian-splatting/submodules/fused-ssim
