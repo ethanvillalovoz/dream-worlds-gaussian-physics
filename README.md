@@ -87,10 +87,10 @@ conda activate gaussian_splatting
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
 # this installs the remaining packages as well as builds the 3 GS submodules.
-pip install -r requirements.txt --no-build-isolation
+pip install -r requirements.txt --no-build-isolation --upgrade
 ```
 
-The repository has submodules to forks of the original gaussian splatting repo as changes were necessary to get it to run on more recent systems. original source is [here](https://github.com/graphdeco-inria/gaussian-splatting). Modified source uses a newer version of the simple-knn that includes the necessary float import found on github proper, and a modified rasterizer that includes the missing cstdint library that allows those two to compile through `pip`.
+The repository uses a fork of the [original source](https://github.com/graphdeco-inria/gaussian-splatting), found [here](). Modified source uses a newer version of the simple-knn that includes the necessary float import found on github proper, and a modified rasterizer that includes the missing cstdint library that allows those two to compile through `pip`.
 
 changes were sourced from these posts:
 - [Successfully installed on Windows 11 with Nvidia RTX 5090 + CUDA 12.8](https://github.com/graphdeco-inria/gaussian-splatting/issues/1215)
