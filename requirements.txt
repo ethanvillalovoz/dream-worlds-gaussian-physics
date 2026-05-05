@@ -8,4 +8,6 @@ joblib
 tensorboard
 wheel
 setuptools
+warp-lang
+warp-lang[examples]
 git+https://github.com/yindaheng98/gaussian-splatting.git@master
