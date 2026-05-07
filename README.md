@@ -3,154 +3,20 @@
 ![Course](https://img.shields.io/badge/Course-CGAI-blue)
 ![Track](https://img.shields.io/badge/Track-Technical%20Exploration-0b7285)
 ![Topic](https://img.shields.io/badge/Topic-Physics%20Simulation%20on%20Gaussian%20Splats-2b8a3e)
-![Status](https://img.shields.io/badge/Status-Planning-f08c00)
-![Deadline](https://img.shields.io/badge/Deadline-May%207%2C%202026-c92a2a)
+![Status](https://img.shields.io/badge/Status-Working%20Prototype-228be6)
 
-## Introduction
+This repository contains a working prototype for exploring simple physics updates on pretrained Gaussian splats. The current codebase is centered around `3dgs_testing.ipynb`, which loads a pretrained ficus scene, applies basic motion rules to Gaussian positions, renders frame sequences, and exports demo videos.
 
-This repository contains our CGAI final project for the Dream Worlds technical exploration track. Our goal is to study how physics-based motion can be coupled with Gaussian splat representations to create dynamic, controllable, and visually coherent scenes.
+This is a CGAI Dream Worlds technical exploration project by Ethan Villalovoz and Michael Walker.
 
-## Description
+## Current Status
 
-We are exploring a technical question at the intersection of particle simulation and point-based rendering: how should physically simulated state drive Gaussian splat attributes such as position, orientation, scale, and opacity? The project will focus on building a prototype pipeline, evaluating its stability and rendering behavior, and documenting the results in a short scientific paper.
+- One working notebook prototype: `3dgs_testing.ipynb`
+- Two current experiments: wall smash and mass falling
+- Demo videos stored under `assets/demos/`
+- Local pretrained inputs and generated frames stored under `output/` and ignored by git
 
-Our current direction is to investigate whether a physics layer can make Gaussian splats more expressive for dynamic scenes while preserving rendering quality and reasonable performance. This aligns with the course focus on Gaussian splats and physics, and fits the technical exploration track requirement to study one course topic in depth.
-
-## Team
-
-- Ethan Villalovoz
-- Michael Walker
-
-Final per-member contribution details will be added before submission.
-
-## Project Scope
-
-This project is being developed for the CGAI Dream Worlds final project under the technical exploration track. The planned submission includes:
-
-- A technical report in short paper style (3-4 pages)
-- Source code for the implementation
-- Qualitative and quantitative results
-- A clear breakdown of team contributions
-
-Course deadline: May 7, 2026 at 11:59 pm ET.
-
-## DATA
-
-[Pretrained Sources that work](https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing)
-
-Downloaded pretrained scene data is expected under `output/ficus_whitebg-trained/`. This directory is used for local experiment inputs and generated frames, and is git-ignored.
-
-## Visuals
-
-Current demo videos live under `assets/demos/`:
-
-- `assets/demos/wall_smash.mp4`
-- `assets/demos/mass_falling.mp4`
-
-Additional comparison figures and simulation clips can be added here as the implementation matures.
-
-Suggested future additions:
-
-- A short animated GIF comparing static splats against physics-driven splats
-- Side-by-side render comparisons for different simulation settings
-- Plots for runtime, stability, or reconstruction quality
-
-## Prerequisites / Requirements
-
-The exact stack may change during implementation, but the current baseline assumptions are:
-
-- Git.
-- Python 3.10 or newer
-- `pip` for dependency management
-- `conda` for virtual environment (I suppose you can use `venv` if you really want to but conda will make things so much easier)
-- A machine with an NVIDIA GPU for running the gaussian-splatting project
-  - if your graphics card is 50xx or better, you will need cuda 12.8
-  - if you are using cuda 12.8, use Linux or WSL on Windows. Though the original project was run on Windows, the changes made to the versions of pytorch that work with Cuda 12.8 make it near impossible to get it to compile without a lot of pain
-
-- A report-writing workflow such as LaTeX, Overleaf, or a similar editor
-
-## Technologies
-
-The project is expected to use a focused subset of the following technologies:
-
-- Python
-- PyTorch
-- NumPy
-- CUDA, if GPU acceleration is needed
-- Matplotlib or similar tools for plots and analysis
-- Markdown and Mermaid for project documentation and diagrams
-
-## QuickStart
-
-Use the following commands to bootstrap the repository locally:
-
-```bash
-git clone https://github.com/MWalkGATech/CGAI-Final-Project-Dream-Worlds.git --recursive
-# If you forget to do this, run `git pull --recurse-submodules` (or `git submodule update --init --recursive` if that doesn't work for some reason)
-cd CGAI-Final-Project-Dream-Worlds
-
-# create the environment here
-conda env create --file environment.yml -y
-conda activate gaussian_splatting
-
-export TORCH_CUDA_ARCH_LIST="12.0"
-
-# This will get the correct version of torch for 12.8, if you need a lower version, you will want to update the env file to use that version of the toolkit
-# and replace the cu128 with the appropriate version. Lowest acceptable version is 11.6
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
-
-# this installs the remaining packages as well as builds the 3 GS submodules.
-pip install -r requirements.txt --no-build-isolation --upgrade
-```
-
-The repository uses a fork of the [original source](https://github.com/graphdeco-inria/gaussian-splatting), found [here](https://github.com/yindaheng98/gaussian-splatting.git). Modified source uses a newer version of the simple-knn that includes the necessary float import found on github proper, and a modified rasterizer that includes the missing cstdint library that allows those two to compile through `pip`.
-
-changes were sourced from these posts:
-- [Successfully installed on Windows 11 with Nvidia RTX 5090 + CUDA 12.8](https://github.com/graphdeco-inria/gaussian-splatting/issues/1215)
-- [Stable Training & Visualization Setup for RTX 50-Series (CUDA 12.8, WSL2 + Windows)](https://github.com/graphdeco-inria/gaussian-splatting/issues/1313)
-
-
-## Advanced Usage
-
-Planned advanced workflows for this repository include:
-
-- Running ablation studies on simulation parameters such as timestep, solver iterations, and particle count
-- Comparing a static Gaussian splat baseline against a physics-driven variant
-- Exporting frame sequences, metrics, and plots for the final report
-- Testing different ways of mapping physical state to Gaussian splat parameters
-
-## Configuration
-
-The implementation will likely expose configuration through experiment files or command-line flags. The main parameters we expect to tune are:
-
-| Parameter | Purpose |
-| --- | --- |
-| `scene_name` | Names the experiment or scene configuration |
-| `num_splats` | Controls the number of Gaussian splats in the scene |
-| `time_step` | Sets the physics integration step size |
-| `solver_iterations` | Controls numerical stability and constraint convergence |
-| `gravity` | Defines external acceleration applied to the system |
-| `splat_update_rule` | Chooses how physics modifies splat parameters |
-| `output_dir` | Selects where renders, logs, and plots are saved |
-
-## Automated Tests
-
-Automated tests are not wired into the repository yet. The intended validation plan is to add:
-
-- Unit tests for physics updates and state transitions
-- Regression tests for splat parameter updates
-- Reproducibility checks for fixed random seeds
-- Lightweight experiment smoke tests for core configs
-
-Once the test suite exists, the default local command should be:
-
-```bash
-pytest -q
-```
-
-## Current Repository Structure
-
-The repository is intentionally small right now and centered around a single working notebook:
+## Repository Layout
 
 ```text
 .
@@ -171,25 +37,119 @@ The repository is intentionally small right now and centered around a single wor
 └── requirements.txt
 ```
 
-The `output/` directory contains local pretrained assets and generated experiment results, so it is intentionally ignored by git.
+`output/` is used for local pretrained assets and generated frame sequences, so it is intentionally git-ignored.
 
-## Roadmap
+## Requirements
 
-- [ ] Select the implementation baseline and experiment scope
-- [ ] Build the first physics-driven Gaussian splat prototype
-- [ ] Define evaluation criteria for quality, stability, and performance
-- [ ] Run ablations and collect visual results
-- [ ] Write the technical report
-- [ ] Prepare final submission materials and gallery-ready media
+- Linux or WSL is recommended
+- NVIDIA GPU
+- Python 3.10
+- `conda`
+- `pip`
+- `ffmpeg`
 
-## Contribution
+If you are on an RTX 50-series GPU, use the CUDA 12.8 PyTorch wheels and prefer Linux or WSL.
 
-This is currently a two-person course project. For now, contributions will be coordinated directly between the team members. Before the final submission, this section will be updated with a clear description of each member's implementation, experimentation, and writing contributions.
+## Setup
 
-If the repository later opens to outside collaboration, a dedicated contribution guide can be added in `CONTRIBUTING.md`.
+Clone the repository and create the environment:
+
+```bash
+git clone https://github.com/MWalkGATech/CGAI-Final-Project-Dream-Worlds.git
+cd CGAI-Final-Project-Dream-Worlds
+
+conda env create --file environment.yml -y
+conda activate gaussian_splatting
+
+export TORCH_CUDA_ARCH_LIST="12.0"
+
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+pip install -r requirements.txt --no-build-isolation --upgrade
+```
+
+If `ffmpeg` is missing:
+
+```bash
+sudo apt update
+sudo apt install -y ffmpeg
+```
+
+The repository installs a fork of Gaussian Splatting from `requirements.txt`. That fork includes compatibility fixes needed for the current setup path.
+
+## Data
+
+The notebook expects the pretrained ficus scene under `output/ficus_whitebg-trained/`.
+
+Source:
+
+- [Pretrained Sources that work](https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing)
+
+For a headless Linux setup, this terminal-only flow works:
+
+```bash
+conda activate gaussian_splatting
+python -m pip install gdown
+
+mkdir -p output
+gdown --folder "https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing" -O output
+
+unzip output/ficus_whitebg-trained.zip -d output
+mkdir -p output/ficus_whitebg-trained/results
+```
+
+After extraction, the important paths should exist:
+
+```text
+output/ficus_whitebg-trained/cameras.json
+output/ficus_whitebg-trained/point_cloud/iteration_30000/point_cloud.ply
+output/ficus_whitebg-trained/results/
+```
+
+## Running the Notebook
+
+1. Open `3dgs_testing.ipynb` in VS Code or Jupyter.
+2. Select the `gaussian_splatting` Python kernel.
+3. If you want a clean rerun, delete old rendered PNGs:
+
+   ```bash
+   rm -f output/ficus_whitebg-trained/results/*.png
+   ```
+
+4. Run the notebook from top to bottom.
+5. The render cells write PNG frames into `output/ficus_whitebg-trained/results/`.
+6. The export cells write demo videos to:
+
+   - `assets/demos/wall_smash.mp4`
+   - `assets/demos/mass_falling.mp4`
+
+## Current Experiments
+
+### Wall Smash
+
+Applies uniform gravity in the negative `y` direction to all Gaussians and clamps positions into the range `[-5, 5]`.
+
+### Mass Falling
+
+Applies gravity in the negative `z` direction and scales motion by randomized inverse mass, then clamps positions into the range `[-10, 10]`.
+
+## Known Limitations
+
+- The project is still notebook-first and not yet refactored into reusable Python modules.
+- Paths are currently hardcoded to the ficus pretrained scene.
+- The current physics rules are intentionally simple and exploratory.
+- There is no automated test suite yet.
+- There is no CLI or configuration system yet.
+
+## Next Steps
+
+- Refactor loading, rendering, and update logic out of the notebook
+- Add more physics update rules and scene experiments
+- Introduce lightweight tests once the physics update code stabilizes
 
 ## References
 
 - Official final project document: https://cgai-gatech.vercel.app/assignment/Final_doc
-- Course theme: Dream Worlds
-- Chosen direction: Technical Exploration on physics simulation over Gaussian splats
+- Gaussian Splatting fork used in this repo: https://github.com/yindaheng98/gaussian-splatting.git
+- CUDA 12.8 install notes:
+  - https://github.com/graphdeco-inria/gaussian-splatting/issues/1215
+  - https://github.com/graphdeco-inria/gaussian-splatting/issues/1313
