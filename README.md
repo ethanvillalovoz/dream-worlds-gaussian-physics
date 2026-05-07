@@ -7,7 +7,7 @@
 
 This repository contains our CGAI Dream Worlds final project on adding physical dynamics to Gaussian Splatting. We start from pretrained 3D Gaussian Splatting scene representations and study how simple physics-based updates can be applied to Gaussian primitives so that they exhibit motion while preserving recognizable visual structure.
 
-The current repository is a working prototype centered around one notebook, `3dgs_testing.ipynb`, with two exploratory experiments and exported demo videos.
+The current repository is a working prototype centered around one notebook, `notebooks/gaussian_splatting_physics.ipynb`, with two exploratory experiments and exported demo videos.
 
 ## Project Overview
 
@@ -27,7 +27,7 @@ Our implementation is deliberately smaller in scope. It focuses on exploratory m
 
 ## Current Prototype Status
 
-- One working notebook prototype: `3dgs_testing.ipynb`
+- One working notebook prototype: `notebooks/gaussian_splatting_physics.ipynb`
 - Two current experiments: wall smash and mass falling
 - Demo videos stored under `assets/demos/`
 - Local pretrained inputs and generated frames stored under `output/` and ignored by git
@@ -40,6 +40,8 @@ Our implementation is deliberately smaller in scope. It focuses on exploratory m
 │   └── demos/
 │       ├── mass_falling.mp4
 │       └── wall_smash.mp4
+├── notebooks/
+│   └── gaussian_splatting_physics.ipynb
 ├── output/
 │   └── ficus_whitebg-trained/
 │       ├── cameras.json
@@ -47,7 +49,6 @@ Our implementation is deliberately smaller in scope. It focuses on exploratory m
 │       ├── images/
 │       ├── point_cloud/
 │       └── results/
-├── 3dgs_testing.ipynb
 ├── README.md
 ├── environment.yml
 └── requirements.txt
@@ -123,7 +124,7 @@ output/ficus_whitebg-trained/results/
 
 ## Running the Notebook
 
-1. Open `3dgs_testing.ipynb` in VS Code or Jupyter.
+1. Open `notebooks/gaussian_splatting_physics.ipynb` in VS Code or Jupyter.
 2. Select the `gaussian_splatting` Python kernel.
 3. If you want a clean rerun, delete old rendered PNGs:
 
