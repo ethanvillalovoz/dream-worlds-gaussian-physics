@@ -38,9 +38,16 @@ Course deadline: May 7, 2026 at 11:59 pm ET.
 
 [Pretrained Sources that work](https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing)
 
+Downloaded pretrained scene data is expected under `output/ficus_whitebg-trained/`. This directory is used for local experiment inputs and generated frames, and is git-ignored.
+
 ## Visuals
 
-Visual results, comparison figures, and simulation clips will be added here as the implementation matures.
+Current demo videos live under `assets/demos/`:
+
+- `assets/demos/wall_smash.mp4`
+- `assets/demos/mass_falling.mp4`
+
+Additional comparison figures and simulation clips can be added here as the implementation matures.
 
 Suggested future additions:
 
@@ -141,20 +148,30 @@ Once the test suite exists, the default local command should be:
 pytest -q
 ```
 
-## Planned Repository Structure
+## Current Repository Structure
 
-As the project grows, we expect the repository to follow a structure similar to:
+The repository is intentionally small right now and centered around a single working notebook:
 
 ```text
 .
-├── README.md
 ├── assets/
-├── configs/
-├── docs/
-├── outputs/
-├── src/
-└── tests/
+│   └── demos/
+│       ├── mass_falling.mp4
+│       └── wall_smash.mp4
+├── output/
+│   └── ficus_whitebg-trained/
+│       ├── cameras.json
+│       ├── depths/
+│       ├── images/
+│       ├── point_cloud/
+│       └── results/
+├── 3dgs_testing.ipynb
+├── README.md
+├── environment.yml
+└── requirements.txt
 ```
+
+The `output/` directory contains local pretrained assets and generated experiment results, so it is intentionally ignored by git.
 
 ## Roadmap
 
