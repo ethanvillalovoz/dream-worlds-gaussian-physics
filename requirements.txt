@@ -1,13 +1,3 @@
-matplotlib
-numpy
-pycolmap
-imageio
-opencv-python
-joblib
-tensorboard
-wheel
-setuptools
-warp-lang
-warp-lang[examples]
-pyglet
-git+https://github.com/yindaheng98/gaussian-splatting.git@master
+# Packaged Python fork of 3D Gaussian Splatting.
+# Pinned to the upstream revision available when the final project was completed.
+git+https://github.com/yindaheng98/gaussian-splatting.git@7eb616c67672dc2d696378df3fad377dd0545d3b

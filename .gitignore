@@ -1,13 +1,37 @@
-data/
+# Python
 __pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
 
-*.pyc
-.vscode
-output
-assets/images
-build
-diff_rasterization/diff_rast.egg-info
-diff_rasterization/dist
-tensorboard_3d
-screenshots
-checkpoints
+# Jupyter
+.ipynb_checkpoints/
+
+# Environments and local configuration
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+.conda/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Project inputs and generated outputs
+data/
+output/
+assets/images/
+build/
+dist/
+screenshots/
+checkpoints/
+tensorboard_3d/
+
+# Native extension artifacts
+diff_rasterization/diff_rast.egg-info/
+diff_rasterization/dist/
