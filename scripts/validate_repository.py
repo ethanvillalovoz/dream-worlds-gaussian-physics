@@ -167,7 +167,7 @@ def validate_markdown_links() -> None:
             target = target.strip().strip("<>")
             if not target or target.startswith(("http://", "https://", "mailto:", "#")):
                 continue
-            local_target = target.split("#", 1)[0]
+            local_target = target.split("?", 1)[0].split("#", 1)[0]
             if not local_target:
                 continue
             resolved = (markdown.parent / local_target).resolve()
