@@ -2,6 +2,8 @@
 
 The original project evaluated five rendered motion settings on the pretrained Ficus scene. Each strip below uses the exact simulation steps selected for the technical report. Images are unmodified archived frames from the original experiment runs.
 
+[Watch the labeled five-experiment comparison](../assets/demos/results-comparison.mp4), or return to the README for the lightweight inline preview.
+
 ## Summary
 
 | Experiment | Motion | Coherence | Main effect |
