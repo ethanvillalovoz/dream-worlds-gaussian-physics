@@ -7,8 +7,8 @@ authors:
     given-names: Michael
   - family-names: Villalovoz
     given-names: Ethan
-repository-code: "https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds"
-url: "https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds"
+repository-code: "https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics"
+url: "https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics"
 version: 1.0.0
 date-released: "2026-05-08"
 keywords:
@@ -28,4 +28,4 @@ preferred-citation:
   institution:
     name: Georgia Institute of Technology
   year: 2026
-  url: "https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds/blob/main/paper/dream-worlds-technical-report.pdf"
+  url: "https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics/blob/main/paper/dream-worlds-technical-report.pdf"

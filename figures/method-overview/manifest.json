@@ -1,0 +1,39 @@
+{
+  "claim": "Dream Worlds animates a pretrained Gaussian Splatting scene by updating only Gaussian centers with simple force rules.",
+  "figure_id": "method-overview",
+  "inputs": [
+    {
+      "bytes": 18010,
+      "path": "notebooks/gaussian_splatting_physics.ipynb",
+      "role": "notebook",
+      "sha256": "9a3fec6def86aa4b59a26cc55eaac5399af95454326ec97dd6760f49b7c6de34"
+    },
+    {
+      "bytes": 6105794,
+      "path": "paper/dream-worlds-technical-report.pdf",
+      "role": "report",
+      "sha256": "93fd7dc9d6d42733fbb77ead6519846057d5cd19e394199866a2db813cad1d48"
+    }
+  ],
+  "outputs": [
+    {
+      "bytes": 10459,
+      "path": "assets/diagrams/dream-worlds-method.svg",
+      "role": "editable_svg",
+      "sha256": "5082c5b991ace35c8b583631c5bf78875a5ca09e60f17da7e458bafbadc3a8f5"
+    },
+    {
+      "bytes": 131039,
+      "path": "assets/diagrams/dream-worlds-method.png",
+      "role": "png_export",
+      "sha256": "687654268a9d69ae0d9fd496377e24f111fae25aeb0dd40d659c9511de816d0a"
+    }
+  ],
+  "processing_notes": [
+    "Manually composed vector SVG from the notebook and report method specification; all glyphs are conceptual and no experimental output is reconstructed. The PNG is a direct raster export of the SVG at 1440 x 640 pixels."
+  ],
+  "schema_version": 1,
+  "selection_note": "No qualitative examples selected; this is a conceptual method diagram.",
+  "target_width_in": null,
+  "venue": null
+}
