@@ -95,7 +95,9 @@ The legacy filename `wall_smash.mp4` corresponds to the uniform-gravity experime
 │   ├── build_results_comparison.sh
 │   └── validate_repository.py
 ├── AUTHORS.md
+├── CHANGELOG.md
 ├── CITATION.cff
+├── LICENSE
 ├── THIRD_PARTY_NOTICES.md
 ├── environment.yml
 └── requirements.txt
@@ -199,7 +201,9 @@ Citation metadata is available in [`CITATION.cff`](CITATION.cff). GitHub can gen
 
 ## License and provenance
 
-No project-level software license has been declared for the original jointly authored repository. Third-party code, data, paper figures, and templates retain their own terms. In particular, the Gaussian Splatting implementation is provided for non-commercial research and evaluation under its upstream license.
+The jointly authored project code is available under the [MIT License](LICENSE). This grant covers the project-authored software in the notebook, scripts, and supporting configuration; it does not supersede separate rights for the paper, figures, rendered media, datasets, pretrained assets, course material, or third-party components.
+
+In particular, the Gaussian Splatting implementation is an external dependency provided for non-commercial research and evaluation under its upstream license.
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before reusing code, data, figures, or media from this repository.
 

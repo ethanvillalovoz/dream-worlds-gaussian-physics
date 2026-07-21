@@ -34,6 +34,8 @@ REQUIRED_FILES = [
     ROOT / "assets" / "demos" / "results-comparison.mp4",
     ROOT / "assets" / "demos" / "results-comparison-preview.gif",
     ROOT / "assets" / "previews" / "results-comparison-poster.png",
+    ROOT / "CHANGELOG.md",
+    ROOT / "LICENSE",
 ]
 
 EXPECTED_EXPERIMENT_MARKERS = [
@@ -191,6 +193,7 @@ def main() -> None:
     print("- method diagram: valid accessible SVG with provenance manifest")
     print("- environment: notebook, download, and export tools declared")
     print("- paper: valid PDF header")
+    print("- release: MIT code license and changelog present")
     print("- Markdown: local links resolve")
 
 
