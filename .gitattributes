@@ -3,6 +3,7 @@
 *.ipynb text eol=lf
 *.md text eol=lf
 *.py text eol=lf
+*.svg text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
 

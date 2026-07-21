@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="640" viewBox="0 0 1440 640" role="img" aria-labelledby="title desc">
+  <title id="title">Dream Worlds method overview</title>
+  <desc id="desc">A four-stage pipeline loads a pretrained Ficus Gaussian Splatting scene, separates updated Gaussian center and velocity state from fixed appearance attributes, applies gravity, inverse-mass, or wind force rules through a shared integration and clamping loop, then renders fixed-camera PNG frames and MP4 videos.</desc>
+  <defs>
+    <style>
+      .title { font: 700 32px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+      .subtitle { font: 400 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #526079; }
+      .stage { font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 1.4px; }
+      .heading { font: 700 23px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+      .body { font: 500 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #344159; }
+      .small { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #526079; }
+      .mono { font: 600 16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #25324a; }
+      .equation { font: italic 600 17px Georgia, "Times New Roman", serif; fill: #25324a; }
+      .card { fill: #ffffff; stroke: #d7deea; stroke-width: 2; }
+      .arrow { fill: none; stroke: #8793a8; stroke-width: 3; stroke-linecap: round; }
+      .divider { stroke: #e4e8f0; stroke-width: 2; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8793a8"/>
+    </marker>
+    <marker id="loop-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c5ce7"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="640" fill="#f7f9fc"/>
+  <text x="48" y="50" class="title">From static Gaussian splats to force-driven motion</text>
+  <text x="48" y="82" class="subtitle">Only Gaussian centers move; appearance stays fixed while each experiment changes the force rule.</text>
+
+  <!-- Stage 1: input -->
+  <rect x="48" y="116" width="256" height="396" rx="18" class="card"/>
+  <rect x="70" y="138" width="80" height="26" rx="13" fill="#e9f2ff"/>
+  <text x="110" y="156" text-anchor="middle" class="stage" fill="#2563a9">01 · INPUT</text>
+  <text x="70" y="198" class="heading">Pretrained scene</text>
+  <text x="70" y="225" class="small">Ficus Gaussian checkpoint</text>
+
+  <!-- Conceptual Gaussian cloud -->
+  <g aria-label="Conceptual Gaussian cloud" opacity="0.95">
+    <ellipse cx="174" cy="398" rx="45" ry="16" fill="#a56a43" opacity="0.22"/>
+    <circle cx="174" cy="394" r="18" fill="#9b5f3d" opacity="0.75"/>
+    <circle cx="160" cy="357" r="9" fill="#3f8f5b" opacity="0.85"/>
+    <circle cx="188" cy="353" r="11" fill="#4ea66c" opacity="0.8"/>
+    <circle cx="146" cy="333" r="12" fill="#56a86d" opacity="0.76"/>
+    <circle cx="174" cy="326" r="13" fill="#318552" opacity="0.86"/>
+    <circle cx="203" cy="327" r="10" fill="#67b77b" opacity="0.8"/>
+    <circle cx="156" cy="303" r="10" fill="#3b9459" opacity="0.82"/>
+    <circle cx="186" cy="296" r="12" fill="#55aa69" opacity="0.78"/>
+    <circle cx="214" cy="302" r="8" fill="#2f7e4c" opacity="0.86"/>
+    <circle cx="168" cy="276" r="8" fill="#66b778" opacity="0.85"/>
+    <circle cx="198" cy="270" r="10" fill="#348e55" opacity="0.82"/>
+    <path d="M174 379 C171 346 177 321 185 286" fill="none" stroke="#6e5338" stroke-width="5" stroke-linecap="round"/>
+    <path d="M175 344 L149 319 M180 324 L207 300 M181 305 L163 285" fill="none" stroke="#6e5338" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <rect x="70" y="244" width="212" height="46" rx="10" fill="#edf5ff" stroke="#bfd7f5"/>
+  <text x="84" y="264" class="mono">point_cloud.ply</text>
+  <text x="84" y="281" class="small">centers + appearance</text>
+
+  <rect x="70" y="442" width="212" height="48" rx="10" fill="#edf5ff" stroke="#bfd7f5"/>
+  <g transform="translate(84 454)" stroke="#2563a9" fill="none" stroke-width="2">
+    <rect x="0" y="3" width="23" height="16" rx="3"/>
+    <path d="M23 7 L34 2 L34 20 L23 15 Z"/>
+  </g>
+  <text x="126" y="462" class="mono">cameras.json</text>
+  <text x="126" y="480" class="small">fixed render views</text>
+
+  <!-- Arrow 1 -->
+  <path d="M314 314 H338" class="arrow" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2: state -->
+  <rect x="350" y="116" width="298" height="396" rx="18" class="card"/>
+  <rect x="372" y="138" width="84" height="26" rx="13" fill="#fff0e8"/>
+  <text x="414" y="156" text-anchor="middle" class="stage" fill="#bd5b25">02 · STATE</text>
+  <text x="372" y="198" class="heading">Particle-like state</text>
+  <text x="372" y="225" class="small">One state per Gaussian primitive</text>
+
+  <rect x="372" y="247" width="254" height="104" rx="12" fill="#fff4ed" stroke="#f2bf9f" stroke-width="2"/>
+  <circle cx="395" cy="275" r="7" fill="#e76f2e"/>
+  <text x="412" y="280" class="body" fill="#8c3e18">Updated every step</text>
+  <text x="393" y="312" class="equation">center xᵢᵗ ∈ ℝ³</text>
+  <text x="393" y="336" class="equation">velocity vᵢᵗ ∈ ℝ³</text>
+
+  <rect x="372" y="369" width="254" height="121" rx="12" fill="#f3f5f8" stroke="#cfd6e1" stroke-width="2"/>
+  <rect x="388" y="390" width="14" height="14" rx="3" fill="#8d98aa"/>
+  <text x="412" y="403" class="body">Held fixed</text>
+  <text x="393" y="434" class="small">scale · rotation · opacity</text>
+  <text x="393" y="459" class="small">spherical-harmonic color</text>
+  <text x="393" y="480" class="small">no retraining or optimization</text>
+
+  <!-- Arrow 2 -->
+  <path d="M658 314 H682" class="arrow" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3: force + integration -->
+  <rect x="694" y="116" width="408" height="396" rx="18" class="card"/>
+  <rect x="716" y="138" width="118" height="26" rx="13" fill="#f0edff"/>
+  <text x="775" y="156" text-anchor="middle" class="stage" fill="#5d4acb">03 · SIMULATE</text>
+  <text x="716" y="198" class="heading">Choose a force rule</text>
+
+  <rect x="716" y="220" width="364" height="52" rx="11" fill="#f7f5ff" stroke="#d3cafb"/>
+  <circle cx="738" cy="246" r="8" fill="#6c5ce7"/>
+  <text x="756" y="244" class="body">Uniform gravity</text>
+  <text x="756" y="262" class="small">shared acceleration g · negative y</text>
+
+  <rect x="716" y="282" width="364" height="52" rx="11" fill="#f7f5ff" stroke="#d3cafb"/>
+  <circle cx="738" cy="308" r="8" fill="#6c5ce7"/>
+  <text x="756" y="306" class="body">Randomized inverse mass</text>
+  <text x="756" y="324" class="small">per-Gaussian scale 1 / mᵢ · negative z</text>
+
+  <rect x="716" y="344" width="364" height="52" rx="11" fill="#f7f5ff" stroke="#d3cafb"/>
+  <circle cx="738" cy="370" r="8" fill="#6c5ce7"/>
+  <text x="756" y="368" class="body">Spatial wind field</text>
+  <text x="756" y="386" class="small">wind scale α ∈ {0.1, 1.0, 4.0}</text>
+
+  <line x1="716" y1="414" x2="1080" y2="414" class="divider"/>
+  <text x="716" y="443" class="small">Shared explicit update · dt = 0.02</text>
+  <text x="716" y="469" class="equation">vᵢᵗ⁺¹ = γvᵢᵗ + aᵢᵗ dt</text>
+  <text x="716" y="494" class="equation">xᵢᵗ⁺¹ = clamp(xᵢᵗ + sᵢvᵢᵗ⁺¹ dt)</text>
+
+  <!-- Arrow 3 -->
+  <path d="M1112 314 H1136" class="arrow" marker-end="url(#arrow)"/>
+
+  <!-- Stage 4: output -->
+  <rect x="1148" y="116" width="244" height="396" rx="18" class="card"/>
+  <rect x="1170" y="138" width="100" height="26" rx="13" fill="#e9f8ef"/>
+  <text x="1220" y="156" text-anchor="middle" class="stage" fill="#2a7a4b">04 · OUTPUT</text>
+  <text x="1170" y="198" class="heading">Render &amp; export</text>
+  <text x="1170" y="225" class="small">Fixed-camera visualization</text>
+
+  <rect x="1170" y="247" width="200" height="142" rx="12" fill="#162235" stroke="#8fd3aa" stroke-width="2"/>
+  <circle cx="1270" cy="318" r="9" fill="#51a46b" opacity="0.9"/>
+  <circle cx="1248" cy="307" r="10" fill="#62b97b" opacity="0.85"/>
+  <circle cx="1291" cy="300" r="8" fill="#3f8f5b" opacity="0.9"/>
+  <circle cx="1263" cy="285" r="11" fill="#56ae70" opacity="0.9"/>
+  <circle cx="1282" cy="273" r="8" fill="#6bc282" opacity="0.85"/>
+  <circle cx="1247" cy="273" r="7" fill="#348653" opacity="0.9"/>
+  <path d="M1270 354 C1266 329 1269 305 1270 282" fill="none" stroke="#9a7250" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="1270" cy="359" rx="25" ry="9" fill="#a56a43"/>
+  <path d="M1210 275 H1195 V362 H1210" fill="none" stroke="#8fd3aa" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1330 275 H1345 V362 H1330" fill="none" stroke="#8fd3aa" stroke-width="3" stroke-linecap="round"/>
+
+  <rect x="1170" y="408" width="200" height="36" rx="9" fill="#edf9f1" stroke="#b8e2c8"/>
+  <text x="1270" y="431" text-anchor="middle" class="mono" fill="#24643d">200 PNG frames</text>
+  <path d="M1270 449 V466" class="arrow" marker-end="url(#arrow)"/>
+  <rect x="1170" y="472" width="200" height="36" rx="9" fill="#edf9f1" stroke="#b8e2c8"/>
+  <text x="1270" y="495" text-anchor="middle" class="mono" fill="#24643d">FFmpeg → MP4</text>
+
+  <!-- Recurrent update/render loop -->
+  <path d="M1270 526 V562 H900 V526" fill="none" stroke="#6c5ce7" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round" marker-end="url(#loop-arrow)"/>
+  <rect x="980" y="548" width="210" height="29" rx="14" fill="#f0edff"/>
+  <text x="1085" y="568" text-anchor="middle" class="small" fill="#5d4acb">repeat for t = 0 … 199</text>
+
+  <!-- Legend -->
+  <g transform="translate(48 600)">
+    <circle cx="7" cy="0" r="7" fill="#2563a9"/>
+    <text x="22" y="5" class="small">external input</text>
+    <circle cx="167" cy="0" r="7" fill="#e76f2e"/>
+    <text x="182" y="5" class="small">updated state</text>
+    <rect x="320" y="-7" width="14" height="14" rx="3" fill="#8d98aa"/>
+    <text x="344" y="5" class="small">fixed attributes</text>
+    <circle cx="497" cy="0" r="7" fill="#6c5ce7"/>
+    <text x="512" y="5" class="small">force rule</text>
+    <circle cx="635" cy="0" r="7" fill="#2f8f57"/>
+    <text x="650" y="5" class="small">rendered output</text>
+    <text x="1344" y="5" text-anchor="end" class="small">conceptual method diagram · not experimental evidence</text>
+  </g>
+</svg>

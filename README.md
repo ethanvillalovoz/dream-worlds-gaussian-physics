@@ -8,7 +8,7 @@
   <a href="https://cgai-gatech.vercel.app/"><img alt="Georgia Tech CGAI" src="https://img.shields.io/badge/Georgia_Tech-CGAI-B3A369"></a>
   <a href="notebooks/gaussian_splatting_physics.ipynb"><img alt="Jupyter notebook" src="https://img.shields.io/badge/Jupyter-notebook-F37626?logo=jupyter&amp;logoColor=white"></a>
   <a href="https://www.python.org/"><img alt="Python 3.10" src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&amp;logoColor=white"></a>
-  <a href="https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds/actions/workflows/repository-checks.yml"><img alt="Repository checks" src="https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds/actions/workflows/repository-checks.yml/badge.svg"></a>
+  <a href="https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics/actions/workflows/repository-checks.yml"><img alt="Repository checks" src="https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics/actions/workflows/repository-checks.yml/badge.svg"></a>
   <img alt="Research prototype" src="https://img.shields.io/badge/status-research_prototype-5B5BD6">
 </p>
 
@@ -36,6 +36,16 @@ Direct center updates create visible motion without retraining the Gaussian repr
 ## Research question
 
 > How can pretrained Gaussian splat representations be updated with simple physical motion while maintaining visual coherence in the rendered object?
+
+## Method overview
+
+<p align="center">
+  <img src="assets/diagrams/dream-worlds-method.svg" alt="Dream Worlds pipeline: load a pretrained Ficus Gaussian scene, separate updated centers and velocities from fixed appearance attributes, apply gravity, inverse-mass, or wind updates, and render frames and videos from a fixed camera.">
+</p>
+
+<p align="center">
+  <sub>Conceptual overview derived from the notebook and technical report; not experimental evidence.</sub>
+</p>
 
 The project treats each Gaussian center as a particle-like position while keeping scale, rotation, opacity, and color fixed. For timestep $\Delta t$, the shared update is:
 
@@ -65,11 +75,14 @@ The legacy filename `wall_smash.mp4` corresponds to the uniform-gravity experime
 .
 ├── .github/workflows/          # Lightweight repository validation
 ├── assets/
+│   ├── diagrams/                # Editable conceptual method overview
 │   ├── demos/                  # Five experiment videos + combined comparison
 │   └── previews/               # Curated report-aligned result frames
 ├── docs/
 │   ├── REPRODUCIBILITY.md      # Environment, data, and verification notes
 │   └── RESULTS.md              # Qualitative findings and frame sequences
+├── figures/
+│   └── method-overview/        # Figure contract and provenance manifest
 ├── notebooks/
 │   └── gaussian_splatting_physics.ipynb
 ├── paper/
@@ -91,7 +104,7 @@ Generated frame sequences and pretrained scene inputs are intentionally excluded
 - NVIDIA GPU with CUDA support
 - Python 3.10
 - Conda
-- FFmpeg
+- JupyterLab and FFmpeg (installed by the Conda environment)
 
 The original setup targeted CUDA 12.8. CPU-only execution and macOS are not supported by the CUDA rasterizer used by the packaged Gaussian Splatting dependency.
 
@@ -100,8 +113,8 @@ The original setup targeted CUDA 12.8. CPU-only execution and macOS are not supp
 ### 1. Create the environment
 
 ```bash
-git clone https://github.com/ethanvillalovoz/CGAI-Final-Project-Dream-Worlds.git
-cd CGAI-Final-Project-Dream-Worlds
+git clone https://github.com/ethanvillalovoz/dream-worlds-gaussian-physics.git
+cd dream-worlds-gaussian-physics
 
 conda env create --file environment.yml -y
 conda activate gaussian_splatting
@@ -119,10 +132,9 @@ The Gaussian Splatting package is pinned in `requirements.txt` to the upstream r
 
 ### 3. Download the pretrained Ficus scene
 
-The notebook expects `cameras.json` and the Gaussian point cloud under `output/ficus_whitebg-trained/`. The data is not redistributed in this repository.
+The notebook expects `cameras.json` and the Gaussian point cloud under `output/ficus_whitebg-trained/`. The data is not redistributed in this repository. The Conda environment includes `gdown` for this download step.
 
 ```bash
-python -m pip install gdown
 mkdir -p output
 gdown --folder "https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing" -O output
 unzip output/ficus_whitebg-trained.zip -d output
@@ -136,6 +148,12 @@ output/ficus_whitebg-trained/point_cloud/iteration_30000/point_cloud.ply
 ```
 
 ### 4. Run the notebook
+
+Start JupyterLab from the repository root:
+
+```bash
+jupyter lab
+```
 
 Open `notebooks/gaussian_splatting_physics.ipynb`, select the `gaussian_splatting` kernel, and run the cells from top to bottom. Frames are written to:
 

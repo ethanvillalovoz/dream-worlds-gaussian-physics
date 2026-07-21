@@ -3,17 +3,25 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOK = ROOT / "notebooks" / "gaussian_splatting_physics.ipynb"
+METHOD_DIAGRAM = ROOT / "assets" / "diagrams" / "dream-worlds-method.svg"
+METHOD_DIAGRAM_PNG = ROOT / "assets" / "diagrams" / "dream-worlds-method.png"
+FIGURE_MANIFEST = ROOT / "figures" / "method-overview" / "manifest.json"
 
 REQUIRED_FILES = [
     NOTEBOOK,
+    METHOD_DIAGRAM,
+    METHOD_DIAGRAM_PNG,
+    FIGURE_MANIFEST,
     ROOT / "paper" / "dream-worlds-technical-report.pdf",
     ROOT / "assets" / "demos" / "experimental-results.mp4",
     ROOT / "assets" / "demos" / "wall_smash.mp4",
@@ -102,6 +110,48 @@ def validate_previews() -> None:
                 fail(f"preview is empty: {path.relative_to(ROOT)}")
 
 
+def validate_method_diagram() -> None:
+    try:
+        diagram = ET.parse(METHOD_DIAGRAM).getroot()
+    except (OSError, ET.ParseError) as error:
+        fail(f"cannot parse method diagram SVG: {error}")
+
+    if not diagram.tag.endswith("svg"):
+        fail("method diagram root element is not SVG")
+
+    children = list(diagram)
+    if not any(child.tag.endswith("title") for child in children):
+        fail("method diagram is missing an accessible title")
+    if not any(child.tag.endswith("desc") for child in children):
+        fail("method diagram is missing an accessible description")
+
+    try:
+        manifest = json.loads(FIGURE_MANIFEST.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        fail(f"cannot parse method figure manifest: {error}")
+
+    if manifest.get("figure_id") != "method-overview":
+        fail("method figure manifest has an unexpected figure_id")
+
+    for artifact in manifest.get("inputs", []) + manifest.get("outputs", []):
+        path = ROOT / artifact.get("path", "")
+        if not path.is_file():
+            fail(f"figure manifest references a missing artifact: {path}")
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != artifact.get("sha256"):
+            fail(
+                "figure manifest hash mismatch: "
+                f"{path.relative_to(ROOT)}"
+            )
+
+
+def validate_environment_contract() -> None:
+    environment = (ROOT / "environment.yml").read_text(encoding="utf-8")
+    for dependency in ("ffmpeg", "gdown", "ipykernel", "jupyterlab"):
+        if not re.search(rf"^\s*-\s*{dependency}\s*$", environment, re.MULTILINE):
+            fail(f"environment.yml is missing documented tool: {dependency}")
+
+
 def validate_markdown_links() -> None:
     for markdown in ROOT.rglob("*.md"):
         if ".git" in markdown.parts:
@@ -126,11 +176,15 @@ def main() -> None:
     validate_required_files()
     validate_notebook()
     validate_previews()
+    validate_method_diagram()
+    validate_environment_contract()
     validate_markdown_links()
     print("Repository validation passed.")
     print("- notebook: 24 cells, 4 experiment sections, outputs cleared")
     print("- demos: 6 archived MP4 files")
     print("- previews: 25 report-aligned PNG frames")
+    print("- method diagram: valid accessible SVG with provenance manifest")
+    print("- environment: notebook, download, and export tools declared")
     print("- paper: valid PDF header")
     print("- Markdown: local links resolve")
 

@@ -9,6 +9,7 @@ This file distinguishes the project's jointly authored work from external softwa
 | `notebooks/gaussian_splatting_physics.ipynb` | Course-project experiment notebook | Michael Walker and Ethan Villalovoz | Original project implementation |
 | `assets/demos/*.mp4` | Rendered experiment and comparison videos | Original project team; see `AUTHORS.md` | Archived experimental output |
 | `assets/previews/**/*.png` | Unmodified frames selected from the original rendered sequences | Original project team; selections match the technical report | Archived experimental output |
+| `assets/diagrams/*` | Conceptual vector explanation of the implemented pipeline | Ethan Villalovoz fork maintenance | Derived explanation; not experimental evidence |
 | `paper/dream-worlds-technical-report.pdf` | Final course technical report | Michael Walker and Ethan Villalovoz | Original project report |
 
 The rendered artifacts depict a pretrained Ficus Gaussian Splatting scene obtained from the external source described below.

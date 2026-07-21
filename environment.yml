@@ -5,6 +5,10 @@ channels:
   - defaults
 dependencies:
   - cuda-toolkit=12.8
+  - ffmpeg
+  - gdown
+  - ipykernel
+  - jupyterlab
   - plyfile
   - python=3.10
   - pip=25.2

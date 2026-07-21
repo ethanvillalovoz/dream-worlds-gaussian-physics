@@ -11,7 +11,8 @@ This guide documents the original execution path without expanding the experimen
 | CUDA toolkit | 12.8 in `environment.yml` |
 | Compiler | GCC 13.4 in `environment.yml` |
 | Renderer | Packaged Python fork of 3D Gaussian Splatting |
-| Video encoder | FFmpeg with `libx264` |
+| Notebook interface | JupyterLab with the environment's IPython kernel |
+| Video encoder | FFmpeg with `libx264`, installed by the Conda environment |
 | Notebook kernel | `gaussian_splatting` |
 
 The renderer builds CUDA extensions during installation. PyTorch must therefore be installed before `requirements.txt`, and its CUDA build must match the local toolkit and driver.
@@ -40,7 +41,6 @@ Leave this variable unset on other architectures so PyTorch targets the local GP
 Download the external Ficus archive:
 
 ```bash
-python -m pip install gdown
 mkdir -p output
 gdown --folder "https://drive.google.com/drive/folders/1Bl51dHBoTt08T3RBtslM93UIIk9C_gSB?usp=sharing" -O output
 unzip output/ficus_whitebg-trained.zip -d output
@@ -60,7 +60,7 @@ The checkpoint is not committed. See [third-party notices](../THIRD_PARTY_NOTICE
 
 ## Running experiments
 
-1. Start Jupyter from the repository root.
+1. Start JupyterLab from the repository root with `jupyter lab`.
 2. Open `notebooks/gaussian_splatting_physics.ipynb`.
 3. Select the `gaussian_splatting` kernel.
 4. Run cells from top to bottom.
