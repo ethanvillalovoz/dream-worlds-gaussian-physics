@@ -27,8 +27,6 @@
 
 ## Results at a glance
 
-### Motion comparison
-
 <p align="center">
   <a href="assets/demos/results-comparison.mp4?raw=1"><img src="assets/demos/results-comparison-preview.gif" width="960" alt="Synchronized motion comparison of uniform gravity, randomized inverse mass, low wind, medium wind, and high wind over 200 simulation steps."></a>
 </p>
@@ -37,13 +35,7 @@
   <sub>Complete eight-second sequence, downsampled to 12 fps for the inline preview. Select it to download the <a href="assets/demos/results-comparison.mp4?raw=1">full-quality H.264 comparison</a>.</sub>
 </p>
 
-### Representative final frames
-
-| Uniform gravity | Randomized inverse mass | Low wind | Medium wind | High wind |
-|:---:|:---:|:---:|:---:|:---:|
-| [![Uniform gravity at step 199](assets/previews/uniform-gravity/step-199.png)](assets/demos/wall_smash.mp4?raw=1) | [![Inverse-mass motion at step 103](assets/previews/inverse-mass/step-103.png)](assets/demos/mass_falling.mp4?raw=1) | [![Low wind at step 199](assets/previews/wind-low/step-199.png)](assets/demos/wind_field_low.mp4?raw=1) | [![Medium wind at step 138](assets/previews/wind-medium/step-138.png)](assets/demos/wind_field.mp4?raw=1) | [![High wind at step 60](assets/previews/wind-high/step-060.png)](assets/demos/wind_field_high.mp4?raw=1) |
-
-Direct center updates create visible motion without retraining the Gaussian representation. Coherent motion preserves the Ficus best; stronger or more heterogeneous forces increase smearing, drift, and loss of recognizable structure. Select any frame to open its source video, or see the [full qualitative result strips](docs/RESULTS.md).
+Direct center updates create visible motion without retraining the Gaussian representation. Coherent motion preserves the Ficus best; stronger or more heterogeneous forces increase smearing, drift, and loss of recognizable structure. See the [full qualitative result strips](docs/RESULTS.md) for step-by-step stills and individual video downloads.
 
 ## Research question
 
