@@ -8,5 +8,6 @@
 *.yaml text eol=lf
 
 *.mp4 binary
+*.gif binary
 *.pdf binary
 *.png binary

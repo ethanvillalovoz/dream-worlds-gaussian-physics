@@ -29,6 +29,11 @@ REQUIRED_FILES = [
     ROOT / "assets" / "demos" / "wind_field.mp4",
     ROOT / "assets" / "demos" / "wind_field_low.mp4",
     ROOT / "assets" / "demos" / "wind_field_high.mp4",
+    ROOT / "assets" / "demos" / "results-comparison-layout.svg",
+    ROOT / "assets" / "demos" / "results-comparison-layout.png",
+    ROOT / "assets" / "demos" / "results-comparison.mp4",
+    ROOT / "assets" / "demos" / "results-comparison-preview.gif",
+    ROOT / "assets" / "previews" / "results-comparison-poster.png",
 ]
 
 EXPECTED_EXPERIMENT_MARKERS = [
@@ -162,7 +167,7 @@ def validate_markdown_links() -> None:
             target = target.strip().strip("<>")
             if not target or target.startswith(("http://", "https://", "mailto:", "#")):
                 continue
-            local_target = target.split("#", 1)[0]
+            local_target = target.split("?", 1)[0].split("#", 1)[0]
             if not local_target:
                 continue
             resolved = (markdown.parent / local_target).resolve()
@@ -181,7 +186,7 @@ def main() -> None:
     validate_markdown_links()
     print("Repository validation passed.")
     print("- notebook: 24 cells, 4 experiment sections, outputs cleared")
-    print("- demos: 6 archived MP4 files")
+    print("- demos: 6 archived MP4 files + labeled comparison derivatives")
     print("- previews: 25 report-aligned PNG frames")
     print("- method diagram: valid accessible SVG with provenance manifest")
     print("- environment: notebook, download, and export tools declared")

@@ -2,6 +2,8 @@
 
 The original project evaluated five rendered motion settings on the pretrained Ficus scene. Each strip below uses the exact simulation steps selected for the technical report. Images are unmodified archived frames from the original experiment runs.
 
+[Download the labeled five-experiment comparison](../assets/demos/results-comparison.mp4?raw=1), or return to the README for the lightweight inline preview.
+
 ## Summary
 
 | Experiment | Motion | Coherence | Main effect |
@@ -20,7 +22,7 @@ The Ficus moves backward into the scene and appears smaller while remaining reco
 |:---:|:---:|:---:|:---:|:---:|
 | ![Uniform gravity step 0](../assets/previews/uniform-gravity/step-000.png) | ![Uniform gravity step 50](../assets/previews/uniform-gravity/step-050.png) | ![Uniform gravity step 100](../assets/previews/uniform-gravity/step-100.png) | ![Uniform gravity step 150](../assets/previews/uniform-gravity/step-150.png) | ![Uniform gravity step 199](../assets/previews/uniform-gravity/step-199.png) |
 
-[Watch the uniform-gravity video](../assets/demos/wall_smash.mp4)
+[Download the uniform-gravity video](../assets/demos/wall_smash.mp4?raw=1)
 
 ## Randomized inverse-mass motion
 
@@ -30,7 +32,7 @@ Per-Gaussian motion variation produces a strong falling effect, but the plant st
 |:---:|:---:|:---:|:---:|:---:|
 | ![Inverse mass step 0](../assets/previews/inverse-mass/step-000.png) | ![Inverse mass step 18](../assets/previews/inverse-mass/step-018.png) | ![Inverse mass step 46](../assets/previews/inverse-mass/step-046.png) | ![Inverse mass step 67](../assets/previews/inverse-mass/step-067.png) | ![Inverse mass step 103](../assets/previews/inverse-mass/step-103.png) |
 
-[Watch the inverse-mass video](../assets/demos/mass_falling.mp4)
+[Download the inverse-mass video](../assets/demos/mass_falling.mp4?raw=1)
 
 ## Low wind
 
@@ -40,7 +42,7 @@ The plant drifts gently left while the pot, trunk, branches, and leaf clusters r
 |:---:|:---:|:---:|:---:|:---:|
 | ![Low wind step 0](../assets/previews/wind-low/step-000.png) | ![Low wind step 50](../assets/previews/wind-low/step-050.png) | ![Low wind step 100](../assets/previews/wind-low/step-100.png) | ![Low wind step 150](../assets/previews/wind-low/step-150.png) | ![Low wind step 199](../assets/previews/wind-low/step-199.png) |
 
-[Watch the low-wind video](../assets/demos/wind_field_low.mp4)
+[Download the low-wind video](../assets/demos/wind_field_low.mp4?raw=1)
 
 ## Medium wind
 
@@ -50,7 +52,7 @@ The baseline wind field produces clearer leftward drift while retaining moderate
 |:---:|:---:|:---:|:---:|:---:|
 | ![Medium wind step 0](../assets/previews/wind-medium/step-000.png) | ![Medium wind step 37](../assets/previews/wind-medium/step-037.png) | ![Medium wind step 72](../assets/previews/wind-medium/step-072.png) | ![Medium wind step 100](../assets/previews/wind-medium/step-100.png) | ![Medium wind step 138](../assets/previews/wind-medium/step-138.png) |
 
-[Watch the medium-wind video](../assets/demos/wind_field.mp4)
+[Download the medium-wind video](../assets/demos/wind_field.mp4?raw=1)
 
 ## High wind
 
@@ -60,7 +62,7 @@ The Ficus moves left rapidly and is mostly outside the frame after a short inter
 |:---:|:---:|:---:|:---:|:---:|
 | ![High wind step 0](../assets/previews/wind-high/step-000.png) | ![High wind step 15](../assets/previews/wind-high/step-015.png) | ![High wind step 30](../assets/previews/wind-high/step-030.png) | ![High wind step 45](../assets/previews/wind-high/step-045.png) | ![High wind step 60](../assets/previews/wind-high/step-060.png) |
 
-[Watch the high-wind video](../assets/demos/wind_field_high.mp4)
+[Download the high-wind video](../assets/demos/wind_field_high.mp4?raw=1)
 
 ## Interpretation boundary
 

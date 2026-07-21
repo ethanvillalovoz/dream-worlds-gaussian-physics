@@ -77,6 +77,14 @@ The simulation cells produce 200 PNG frames per setting. The FFmpeg cells encode
 
 All frame directories live under `assets/images/ficus_whitebg-trained/images/`. They are ignored by Git because they can be regenerated.
 
+After the five experiment videos exist, rebuild the labeled comparison MP4, inline GIF preview, and poster from the archived outputs:
+
+```bash
+bash scripts/build_results_comparison.sh
+```
+
+The editable composition source and the exact source-to-label mapping are documented in [`assets/demos/README.md`](../assets/demos/README.md).
+
 ## Static repository validation
 
 The public CI does not claim to reproduce CUDA renders. It performs deterministic checks that are meaningful without the external data or GPU:
@@ -98,4 +106,4 @@ The validator confirms that:
 - The external checkpoint source is linked rather than versioned in this repository.
 - CUDA, PyTorch, compiler, and GPU-generation compatibility can affect installation.
 - The project records qualitative results rather than numerical regression targets.
-- The combined comparison video is an archived post-processing artifact; the notebook exports the five individual experiment videos.
+- The original `experimental-results.mp4` is an archived post-processing artifact; the notebook exports the five individual experiment videos. The labeled `results-comparison.*` derivatives are reproducible from those five clips with `scripts/build_results_comparison.sh`.

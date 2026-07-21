@@ -7,7 +7,8 @@ This file distinguishes the project's jointly authored work from external softwa
 | Paths | Description | Attribution | Evidence class |
 |---|---|---|---|
 | `notebooks/gaussian_splatting_physics.ipynb` | Course-project experiment notebook | Michael Walker and Ethan Villalovoz | Original project implementation |
-| `assets/demos/*.mp4` | Rendered experiment and comparison videos | Original project team; see `AUTHORS.md` | Archived experimental output |
+| `assets/demos/experimental-results.mp4`, `assets/demos/wall_smash.mp4`, `assets/demos/mass_falling.mp4`, `assets/demos/wind_field*.mp4` | Original rendered experiment and comparison videos | Original project team; see `AUTHORS.md` | Archived experimental output |
+| `assets/demos/results-comparison.*`, `assets/previews/results-comparison-poster.png` | Labeled synchronized composition of the five original experiment videos | Original project team for experiment footage; Ethan Villalovoz fork maintenance for layout and export | Presentation derivative of archived experimental output; no experiment frames regenerated |
 | `assets/previews/**/*.png` | Unmodified frames selected from the original rendered sequences | Original project team; selections match the technical report | Archived experimental output |
 | `assets/diagrams/*` | Conceptual vector explanation of the implemented pipeline | Ethan Villalovoz fork maintenance | Derived explanation; not experimental evidence |
 | `paper/dream-worlds-technical-report.pdf` | Final course technical report | Michael Walker and Ethan Villalovoz | Original project report |

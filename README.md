@@ -20,18 +20,30 @@
 <p align="center">
   <a href="paper/dream-worlds-technical-report.pdf"><strong>Technical report</strong></a> ·
   <a href="notebooks/gaussian_splatting_physics.ipynb"><strong>Notebook</strong></a> ·
-  <a href="assets/demos/experimental-results.mp4"><strong>Combined demo</strong></a> ·
+  <a href="assets/demos/results-comparison.mp4?raw=1"><strong>Labeled comparison</strong></a> ·
   <a href="https://www.youtube.com/watch?v=utVmJemMDik"><strong>YouTube</strong></a> ·
   <a href="https://cgai-gatech.vercel.app/assignment/Final_doc"><strong>Assignment</strong></a>
 </p>
 
 ## Results at a glance
 
+### Motion comparison
+
+<p align="center">
+  <a href="assets/demos/results-comparison.mp4?raw=1"><img src="assets/demos/results-comparison-preview.gif" width="960" alt="Synchronized motion comparison of uniform gravity, randomized inverse mass, low wind, medium wind, and high wind over 200 simulation steps."></a>
+</p>
+
+<p align="center">
+  <sub>Complete eight-second sequence, downsampled to 12 fps for the inline preview. Select it to download the <a href="assets/demos/results-comparison.mp4?raw=1">full-quality H.264 comparison</a>.</sub>
+</p>
+
+### Representative final frames
+
 | Uniform gravity | Randomized inverse mass | Low wind | Medium wind | High wind |
 |:---:|:---:|:---:|:---:|:---:|
-| ![Uniform gravity at step 199](assets/previews/uniform-gravity/step-199.png) | ![Inverse-mass motion at step 103](assets/previews/inverse-mass/step-103.png) | ![Low wind at step 199](assets/previews/wind-low/step-199.png) | ![Medium wind at step 138](assets/previews/wind-medium/step-138.png) | ![High wind at step 60](assets/previews/wind-high/step-060.png) |
+| [![Uniform gravity at step 199](assets/previews/uniform-gravity/step-199.png)](assets/demos/wall_smash.mp4?raw=1) | [![Inverse-mass motion at step 103](assets/previews/inverse-mass/step-103.png)](assets/demos/mass_falling.mp4?raw=1) | [![Low wind at step 199](assets/previews/wind-low/step-199.png)](assets/demos/wind_field_low.mp4?raw=1) | [![Medium wind at step 138](assets/previews/wind-medium/step-138.png)](assets/demos/wind_field.mp4?raw=1) | [![High wind at step 60](assets/previews/wind-high/step-060.png)](assets/demos/wind_field_high.mp4?raw=1) |
 
-Direct center updates create visible motion without retraining the Gaussian representation. Coherent motion preserves the Ficus best; stronger or more heterogeneous forces increase smearing, drift, and loss of recognizable structure. See the [full qualitative result strips](docs/RESULTS.md) or watch the [five-way comparison](assets/demos/experimental-results.mp4).
+Direct center updates create visible motion without retraining the Gaussian representation. Coherent motion preserves the Ficus best; stronger or more heterogeneous forces increase smearing, drift, and loss of recognizable structure. Select any frame to open its source video, or see the [full qualitative result strips](docs/RESULTS.md).
 
 ## Research question
 
@@ -76,7 +88,7 @@ The legacy filename `wall_smash.mp4` corresponds to the uniform-gravity experime
 ├── .github/workflows/          # Lightweight repository validation
 ├── assets/
 │   ├── diagrams/                # Editable conceptual method overview
-│   ├── demos/                  # Five experiment videos + combined comparison
+│   ├── demos/                  # Experiment videos + labeled comparison media
 │   └── previews/               # Curated report-aligned result frames
 ├── docs/
 │   ├── REPRODUCIBILITY.md      # Environment, data, and verification notes
@@ -88,6 +100,7 @@ The legacy filename `wall_smash.mp4` corresponds to the uniform-gravity experime
 ├── paper/
 │   └── dream-worlds-technical-report.pdf
 ├── scripts/
+│   ├── build_results_comparison.sh
 │   └── validate_repository.py
 ├── AUTHORS.md
 ├── CITATION.cff
@@ -162,6 +175,12 @@ assets/images/ficus_whitebg-trained/images/<experiment_name>/
 ```
 
 The export cells write the five experiment videos to `assets/demos/`. Existing files are overwritten by FFmpeg.
+
+After exporting the individual videos, rebuild the labeled README comparison and poster with:
+
+```bash
+bash scripts/build_results_comparison.sh
+```
 
 For a fuller environment and output checklist, see [Reproducibility](docs/REPRODUCIBILITY.md).
 
