@@ -51,4 +51,6 @@ Course pages are linked for context and are not redistributed here.
 
 ## Project-level license status
 
-The original joint repository did not declare a project-level software license. This fork does not add a new license grant on behalf of both original authors. Unless a governing third-party license says otherwise, the absence of a license means no general permission to copy, modify, or redistribute the jointly authored source is implied.
+With the agreement of both original authors, the jointly authored project code is released under the [MIT License](LICENSE). The MIT grant covers project-authored software in the notebook, scripts, and supporting configuration.
+
+The MIT License does not apply to the technical report, research figures, rendered videos, preview images, datasets, pretrained Ficus scene, course material, or third-party software. Those artifacts remain governed by their respective owners and terms described above. Their inclusion in this repository does not create an additional reuse grant.
